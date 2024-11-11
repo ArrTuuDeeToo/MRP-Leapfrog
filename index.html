@@ -5,20 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Item Order Summary</title>
     <style>
-        /* Basic styling for layout and buttons */
+        /* Set background image and overall page styling */
         body {
-            background-color: #333;
+            background-image: url('https://cdn.discordapp.com/attachments/1280957713651601539/1280957713949655084/Leap_Frog.jpg?ex=6732f596&is=6731a416&hm=60af1a01b632f3d14edc9b5d7985bf2d9020307c1c1b1d9ae59eb8e402cc0cfd&'); /* Replace with your image URL */
+            background-size: cover;
+            background-position: center;
             color: #f2f2f2;
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
         }
+
+        /* Logo styling */
+        #logo {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            width: 150px; /* Adjust logo size */
+        }
+
+        /* Container for the main content */
         .container {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
             padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+            border-radius: 10px;
+            width: 80%;
+            max-width: 1200px;
         }
+
         .panel {
             flex: 1;
             margin: 0 10px;
@@ -26,9 +47,11 @@
             padding: 20px;
             border-radius: 5px;
         }
+
         .panel h3 {
             color: #f2f2f2;
         }
+
         .item {
             margin: 5px;
             padding: 8px;
@@ -38,18 +61,22 @@
             border-radius: 5px;
             cursor: pointer;
         }
+
         .item:hover {
             background-color: #777;
         }
+
         .discount {
             margin-top: 10px;
         }
+
         .order-actions {
             display: flex;
             justify-content: space-between;
             gap: 10px;
             margin-top: 10px;
         }
+
         .order-actions button {
             padding: 10px;
             border: none;
@@ -58,9 +85,11 @@
             border-radius: 5px;
             cursor: pointer;
         }
+
         .order-actions button:hover {
             background-color: #777;
         }
+
         input[type="text"] {
             width: 100%;
             padding: 8px;
@@ -73,15 +102,14 @@
     </style>
 </head>
 <body>
+    <!-- Logo at the top -->
+    <img id="logo" src="https://media.discordapp.net/attachments/1200122767916412959/1297018009403261079/logo_banner.png?ex=673360e6&is=67320f66&hm=73099846d5dcb0fc9a8f87af5b39e05423ce5f6f3025e7a7987ae8683d9d1c99&=&format=webp&quality=lossless&width=741&height=417" alt="Logo"> <!-- Replace with your logo URL -->
+
+    <!-- Main container for order summary -->
     <div class="container">
         <div class="panel" id="menu">
             <h3>Menu</h3>
             <div id="item-grid"></div>
-        </div>
-
-        <div class="panel">
-            <h3>Favorite Orders</h3>
-            <div id="favorites-list">No favorite orders saved</div>
         </div>
 
         <div class="panel">
@@ -108,11 +136,6 @@
 
     <script>
         let order = {};
-        let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-        favorites = favorites.map((fav, i) => ({
-            ...fav,
-            name: fav.name || `Favorite ${i + 1}`
-        }));
 
         const menuItems = {
             "Food": [
@@ -212,25 +235,8 @@
 
         function saveAsFavorite() {
             if (Object.keys(order).length === 0) return alert("Add items before saving!");
-            const orderName = document.getElementById("order-name").value || `Favorite ${favorites.length + 1}`;
-            favorites.push({ name: orderName, items: { ...order } });
-            localStorage.setItem("favorites", JSON.stringify(favorites));
-            updateFavorites();
-            document.getElementById("order-name").value = "";
-        }
-
-        function updateFavorites() {
-            const favoritesList = document.getElementById("favorites-list");
-            favoritesList.innerHTML = favorites.length
-                ? favorites.map((fav, i) => `
-                    <div class="item" onclick="loadFavorite(${i})">${fav.name}</div>
-                `).join("")
-                : "No favorite orders saved";
-        }
-
-        function loadFavorite(index) {
-            order = { ...favorites[index].items };
-            updateOrderSummary();
+            const orderName = document.getElementById("order-name").value || `Favorite`;
+            alert(`Order saved as ${orderName}`);
         }
 
         function completeOrder() {
@@ -239,7 +245,7 @@
                 return;
             }
             // Send completed order to Discord via Webhook
-            const webhookURL = "YOUR_DISCORD_WEBHOOK_URL"; // Replace with your webhook URL
+            const webhookURL = "Yhttps://discord.com/api/webhooks/1304933522385010699/_L8gMHmG8VFshVgB4zrINZoX6srFfeoSy7XAtCQS4vhpfJW-Ax2GsbH24UFKCQE4iShy"; // Replace with your webhook URL
             const orderSummary = Object.keys(order).map(item => {
                 return `${item}: ${order[item].quantity} x $${order[item].price} = $${order[item].totalPrice}`;
             }).join("\n");
@@ -272,7 +278,6 @@
         }
 
         generateMenu();
-        updateFavorites();
     </script>
 </body>
 </html>
