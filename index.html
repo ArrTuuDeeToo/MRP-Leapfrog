@@ -52,74 +52,21 @@
 
         .item-grid {
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
             gap: 10px;
-            justify-content: flex-start;
         }
 
         .item {
             background-color: #444;
             padding: 12px;
             border-radius: 6px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex: 1 1 45%;
-            max-width: 400px;
-            margin-bottom: 5px;
-        }
-
-        .item-name {
-            font-size: 1rem;
             color: #ffffff;
-            flex: 1;
-            white-space: nowrap;
-        }
-
-        .quantity-buttons {
-            display: flex;
-            gap: 5px;
-        }
-
-        .quantity-buttons button {
-            background-color: #555;
-            color: #ffffff;
-            border: none;
-            padding: 6px 8px;
             cursor: pointer;
-            border-radius: 5px;
             transition: background-color 0.3s;
         }
 
-        .quantity-buttons button:hover {
+        .item:hover {
             background-color: #666;
-        }
-
-        .discount-options {
-            display: flex;
-            gap: 10px;
-            padding: 10px;
-            background-color: #444;
-            border-radius: 6px;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .discount-options label {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        #order-list ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        #order-list li {
-            padding: 8px 0;
-            border-bottom: 1px solid #4a4a4a;
         }
 
         .subtotal {
@@ -129,13 +76,6 @@
             padding: 10px;
             background-color: #444;
             border-radius: 6px;
-        }
-
-        .order-actions {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 15px;
         }
 
         .order-actions button {
@@ -150,67 +90,6 @@
 
         .order-actions button:hover {
             background-color: #666;
-        }
-
-        .favorite-item {
-            background-color: #444;
-            margin: 10px 0;
-            padding: 15px;
-            border-radius: 6px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .favorite-name {
-            flex: 1;
-            min-width: 0;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .favorite-name span {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .favorite-name input {
-            flex: 1;
-            background: #555;
-            border: 1px solid #666;
-            color: white;
-            padding: 4px 8px;
-            border-radius: 4px;
-        }
-
-        .favorite-actions {
-            display: flex;
-            gap: 5px;
-        }
-
-        .favorite-actions button {
-            background-color: #555;
-            color: #ffffff;
-            border: none;
-            padding: 8px 15px;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-
-        .favorite-actions button:hover {
-            background-color: #666;
-        }
-
-        .delete-button {
-            background-color: #873535!important;
-        }
-
-        .delete-button:hover {
-            background-color: #a84242!important;
         }
     </style>
 </head>
@@ -258,13 +137,76 @@
     <script>
         let order = {};
         let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-        // Add names to existing favorites if they don't have them
         favorites = favorites.map((fav, i) => ({
             ...fav,
             name: fav.name || `Favorite ${i + 1}`
         }));
 
-        updateFavorites();
+        const menuItems = {
+            "Food": [
+                { name: "Salad", price: 150 },
+                { name: "Pad Thai", price: 200 },
+                { name: "Sashimi Mix", price: 250 }
+            ],
+            "Desserts": [
+                { name: "Froggy Bites", price: 150 },
+                { name: "Froggy Donuts", price: 150 },
+                { name: "Froggy Cupcakes", price: 150 },
+                { name: "Froggy Cakes", price: 200 }
+            ],
+            "Drinks": [
+                { name: "Choccy Milk", price: 150 },
+                { name: "Fresh Lemonade", price: 180 },
+                { name: "Mint Frappe", price: 200 },
+                { name: "Matcha Latte", price: 200 },
+                { name: "Froggy Shake", price: 250 }
+            ],
+            "Matcha Latte Specials": [
+                { name: "10 Matcha Lattes", price: 1600 },
+                { name: "20 Matcha Lattes", price: 2500 },
+                { name: "30 Matcha Lattes", price: 3500 },
+                { name: "40 Matcha Lattes", price: 4500 },
+                { name: "50 Matcha Lattes", price: 5500 },
+                { name: "100 Matcha Lattes", price: 9000 }
+            ],
+            "Specials": [
+                { name: "The Froggy Beginning", price: 5000 },
+                { name: "32 Froggy Shakes", price: 5000 }
+            ],
+            "Meal Deals": [
+                { name: "The Leaping Nibbles", price: 1200 },
+                { name: "Froggy Snacks", price: 1800 },
+                { name: "An Amazing, Ribbiting Lunch", price: 2500 },
+                { name: "Frogging Treats", price: 2700 },
+                { name: "The Croaking Exciting Meal", price: 4000 },
+                { name: "The Tortoise Special", price: 6000 }
+            ]
+        };
+
+        function renderMenuItems() {
+            const itemGrid = document.getElementById("item-grid");
+            itemGrid.innerHTML = "";
+
+            for (const category in menuItems) {
+                const categoryDiv = document.createElement("div");
+                const categoryTitle = document.createElement("h4");
+                categoryTitle.textContent = category;
+                categoryTitle.style.color = "#f2f2f2";
+                categoryDiv.appendChild(categoryTitle);
+
+                menuItems[category].forEach(item => {
+                    const itemButton = document.createElement("button");
+                    itemButton.textContent = `${item.name} - $${item.price}`;
+                    itemButton.classList.add("item");
+                    itemButton.onclick = () => addItem(item.name, item.price, 1);
+                    categoryDiv.appendChild(itemButton);
+                });
+
+                itemGrid.appendChild(categoryDiv);
+            }
+        }
+
+        renderMenuItems();
 
         function addItem(name, price, quantity) {
             if (order[name]) {
@@ -308,58 +250,34 @@
         }
 
         function saveAsFavorite() {
-            if (Object.keys(order).length === 0) return alert("Add items before saving!");
             const orderName = document.getElementById("order-name").value || `Favorite ${favorites.length + 1}`;
-            favorites.push({ name: orderName, order: { ...order } });
+            favorites.push({ name: orderName, items: { ...order } });
             localStorage.setItem("favorites", JSON.stringify(favorites));
-            updateFavorites();
-            document.getElementById("order-name").value = "";
-        }
-
-        function updateFavorites() {
-            const favoritesList = document.getElementById("favorites-list");
-            favoritesList.innerHTML = favorites.length
-                ? favorites.map((fav, i) => `
-                    <div class="favorite-item">
-                        <div class="favorite-name">
-                            <input type="text" id="fav-name-${i}" value="${fav.name}" oninput="updateFavoriteName(${i})" />
-                        </div>
-                        <div class="favorite-actions">
-                            <button onclick="loadFavorite(${i})">Load</button>
-                            <button onclick="deleteFavorite(${i})" class="delete-button">Delete</button>
-                        </div>
-                    </div>
-                `).join("")
-                : "No favorite orders saved";
-        }
-
-        function updateFavoriteName(index) {
-            favorites[index].name = document.getElementById(`fav-name-${index}`).value;
-            localStorage.setItem("favorites", JSON.stringify(favorites));
-        }
-
-        function loadFavorite(index) {
-            order = { ...favorites[index].order };
-            updateOrderSummary();
-        }
-
-        function deleteFavorite(index) {
-            if (confirm("Are you sure you want to delete this favorite?")) {
-                favorites.splice(index, 1);
-                localStorage.setItem("favorites", JSON.stringify(favorites));
-                updateFavorites();
-            }
+            loadFavorites();
+            clearOrder();
         }
 
         function completeOrder() {
-            if (!Object.keys(order).length) {
-                alert("Add items to order before completing!");
-                return;
-            }
-
             alert("Order completed!");
             clearOrder();
         }
+
+        function loadFavorites() {
+            const favoritesList = document.getElementById("favorites-list");
+            favoritesList.innerHTML = favorites.length ? "" : "No favorite orders saved";
+            favorites.forEach((favorite, index) => {
+                const favDiv = document.createElement("div");
+                favDiv.textContent = favorite.name;
+                favDiv.classList.add("item");
+                favDiv.onclick = () => {
+                    order = { ...favorite.items };
+                    updateOrderSummary();
+                };
+                favoritesList.appendChild(favDiv);
+            });
+        }
+
+        loadFavorites();
     </script>
 </body>
 </html>
