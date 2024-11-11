@@ -1,3 +1,11 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
 body {
     font-family: Arial, sans-serif;
     background-color: #2e2e2e;
@@ -9,12 +17,14 @@ body {
     margin: 0;
 }
 
+/* Main Container */
 .container {
     display: flex;
     gap: 20px;
 }
 
-.menu,.summary {
+/* Left Panel (Menu) and Right Panel (Summary) Styling */
+.menu, .summary {
     background-color: #444;
     padding: 20px;
     border-radius: 8px;
@@ -23,54 +33,82 @@ body {
 
 h2 {
     text-align: center;
+    font-size: 1.5em;
 }
 
-.items,.discounts {
-    margin-top: 15px;
-}
-
-.item-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-}
-
-.item {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-}
-
+/* Category and Item Grid */
 .category {
     margin-top: 15px;
 }
 
 .category h3 {
-    margin-top: 0;
-}
-
-.submenu-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: flex-start;
-}
-
-.submenu {
-    background-color: #555;
-    padding: 10px;
-    border-radius: 6px;
+    font-size: 1.2em;
     margin-bottom: 10px;
 }
 
-button {
+.item-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    background-color: #555;
+    padding: 8px;
+    border-radius: 6px;
+}
+
+.item span {
+    font-size: 0.9em;
+}
+
+.item button {
     background-color: #777;
     color: white;
     border: none;
-    padding: 5px;
+    padding: 5px 10px;
     cursor: pointer;
+    border-radius: 4px;
+    font-size: 0.8em;
 }
 
-button:hover {
+.item button:hover {
+    background-color: #666;
+}
+
+/* Discounts Section */
+.discounts {
+    margin-top: 20px;
+}
+
+.discounts label {
+    font-size: 0.9em;
+    display: block;
+    margin: 5px 0;
+}
+
+/* Action Buttons in Summary */
+.actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.actions button {
+    background-color: #777;
+    color: white;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 0.9em;
+    width: 100%;
+    text-align: center;
+}
+
+.actions button:hover {
     background-color: #555;
 }
