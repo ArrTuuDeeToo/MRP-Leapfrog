@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,24 +17,24 @@
             color: #ffffff;
         }
 
-       .container {
+        .container {
             display: flex;
             max-width: 1400px;
             margin: 0 auto;
             gap: 20px;
         }
 
-       .left-panel {
+        .left-panel {
             flex: 2;
             min-width: 400px;
         }
 
-       .right-panel {
+        .right-panel {
             flex: 1;
             min-width: 300px;
         }
 
-       .card {
+        .card {
             background-color: #3a3a3a;
             padding: 20px;
             border-radius: 8px;
@@ -43,7 +42,7 @@
             margin-bottom: 10px;
         }
 
-       .card h3 {
+        .card h3 {
             text-align: center;
             color: #f2f2f2;
             margin-bottom: 15px;
@@ -51,14 +50,14 @@
             border-bottom: 2px solid #4a4a4a;
         }
 
-       .item-grid {
+        .item-grid {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
             justify-content: flex-start;
         }
 
-       .item {
+        .item {
             background-color: #444;
             padding: 12px;
             border-radius: 6px;
@@ -70,19 +69,19 @@
             margin-bottom: 5px;
         }
 
-       .item-name {
+        .item-name {
             font-size: 1rem;
             color: #ffffff;
             flex: 1;
             white-space: nowrap;
         }
 
-       .quantity-buttons {
+        .quantity-buttons {
             display: flex;
             gap: 5px;
         }
 
-       .quantity-buttons button {
+        .quantity-buttons button {
             background-color: #555;
             color: #ffffff;
             border: none;
@@ -92,11 +91,11 @@
             transition: background-color 0.3s;
         }
 
-       .quantity-buttons button:hover {
+        .quantity-buttons button:hover {
             background-color: #666;
         }
 
-       .discount-options {
+        .discount-options {
             display: flex;
             gap: 10px;
             padding: 10px;
@@ -107,7 +106,7 @@
             margin-bottom: 10px;
         }
 
-       .discount-options label {
+        .discount-options label {
             display: flex;
             align-items: center;
             gap: 5px;
@@ -123,7 +122,7 @@
             border-bottom: 1px solid #4a4a4a;
         }
 
-       .subtotal {
+        .subtotal {
             font-weight: bold;
             margin-top: 15px;
             text-align: right;
@@ -132,14 +131,14 @@
             border-radius: 6px;
         }
 
-       .order-actions {
+        .order-actions {
             display: flex;
             justify-content: center;
             gap: 10px;
             margin-top: 15px;
         }
 
-       .order-actions button {
+        .order-actions button {
             background-color: #555;
             color: #ffffff;
             border: none;
@@ -149,11 +148,11 @@
             transition: background-color 0.3s;
         }
 
-       .order-actions button:hover {
+        .order-actions button:hover {
             background-color: #666;
         }
 
-       .favorite-item {
+        .favorite-item {
             background-color: #444;
             margin: 10px 0;
             padding: 15px;
@@ -164,7 +163,7 @@
             gap: 10px;
         }
 
-       .favorite-name {
+        .favorite-name {
             flex: 1;
             min-width: 0;
             display: flex;
@@ -172,13 +171,13 @@
             gap: 8px;
         }
 
-       .favorite-name span {
+        .favorite-name span {
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
-       .favorite-name input {
+        .favorite-name input {
             flex: 1;
             background: #555;
             border: 1px solid #666;
@@ -187,12 +186,12 @@
             border-radius: 4px;
         }
 
-      .favorite-actions {
+        .favorite-actions {
             display: flex;
             gap: 5px;
         }
 
-      .favorite-actions button {
+        .favorite-actions button {
             background-color: #555;
             color: #ffffff;
             border: none;
@@ -202,15 +201,15 @@
             transition: background-color 0.3s;
         }
 
-      .favorite-actions button:hover {
+        .favorite-actions button:hover {
             background-color: #666;
         }
 
-      .delete-button {
+        .delete-button {
             background-color: #873535!important;
         }
 
-      .delete-button:hover {
+        .delete-button:hover {
             background-color: #a84242!important;
         }
     </style>
@@ -243,14 +242,14 @@
 
             <!-- Order Summary -->
             <div class="card" id="order-summary">
-                <h3>Order Summary 
+                <h3>Order Summary</h3>
                 <input type="text" id="order-name" placeholder="Order Name">
                 <div id="order-list">No items added</div>
                 <p class="subtotal">Subtotal: $<span id="subtotal">0.00</span></p>
                 <div class="order-actions">
-                    <button onclick="clearOrder()">Clear Order </button>
-                    <button onclick="saveAsFavorite()">Save as Favorite </button>
-                    <button onclick="completeOrder()">Complete Order </button>
+                    <button onclick="clearOrder()">Clear Order</button>
+                    <button onclick="saveAsFavorite()">Save as Favorite</button>
+                    <button onclick="completeOrder()">Complete Order</button>
                 </div>
             </div>
         </div>
@@ -261,7 +260,7 @@
         let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
         // Add names to existing favorites if they don't have them
         favorites = favorites.map((fav, i) => ({
-           ...fav,
+            ...fav,
             name: fav.name || `Favorite ${i + 1}`
         }));
 
@@ -299,8 +298,8 @@
                 subtotalValue *= 0.95;
             }
 
-            orderList.innerHTML = Object.keys(order).length? `<ul>${orderSummaryText}</ul>` : "No items added";
-            subtotal.textContent = subtotalValue.toFixed(2));
+            orderList.innerHTML = Object.keys(order).length ? `<ul>${orderSummaryText}</ul>` : "No items added";
+            subtotal.textContent = subtotalValue.toFixed(2);
         }
 
         function clearOrder() {
@@ -309,116 +308,56 @@
         }
 
         function saveAsFavorite() {
-            if (Object.keys(order).length) {
-                const newFavorite = {
-                   ...order,
-                    name: `Favorite ${favorites.length + 1}`
-                };
-                favorites.push(newFavorite);
-                localStorage.setItem('favorites', JSON.stringify(favorites));
-                updateFavorites();
-            }
+            if (Object.keys(order).length === 0) return alert("Add items before saving!");
+            const orderName = document.getElementById("order-name").value || `Favorite ${favorites.length + 1}`;
+            favorites.push({ name: orderName, order: { ...order } });
+            localStorage.setItem("favorites", JSON.stringify(favorites));
+            updateFavorites();
+            document.getElementById("order-name").value = "";
         }
 
         function updateFavorites() {
             const favoritesList = document.getElementById("favorites-list");
-            if (!favorites.length) {
-                favoritesList.innerHTML = "No favorite orders saved";
-            } else {
-                favoritesList.innerHTML = favorites
-                   .map((fav, i) => `
-                        <div class="favorite-item">
-                            <div class="favorite-name">
-                                <span onclick="startRename(${i})">${fav.name}</span>
-                            </div>    
-                            <div class="favorite-actions">
-                                <button onclick="loadFavorite(${i})">Load</button>
-                                <button onclick="renameFavorite(${i})" class="rename-button">Rename</button>
-                                <button onclick="deleteFavorite(${i})" class="delete-button">Delete</button>
-                            </div>
+            favoritesList.innerHTML = favorites.length
+                ? favorites.map((fav, i) => `
+                    <div class="favorite-item">
+                        <div class="favorite-name">
+                            <input type="text" id="fav-name-${i}" value="${fav.name}" oninput="updateFavoriteName(${i})" />
                         </div>
-                    `)
-                  .join("");
-            }
+                        <div class="favorite-actions">
+                            <button onclick="loadFavorite(${i})">Load</button>
+                            <button onclick="deleteFavorite(${i})" class="delete-button">Delete</button>
+                        </div>
+                    </div>
+                `).join("")
+                : "No favorite orders saved";
         }
 
-        function startRename(index) {
-            const favoriteNameElement = document.querySelector(`#favorites-list.favorite-item:nth-child(${index + 1}).favorite-name`);
-            const currentName = favorites[index].name;
-            favoriteNameElement.innerHTML = `
-                <input type="text" value="${currentName}" onblur="finishRename(${index}, this.value)" onkeypress="handleRenameKeyPress(event, ${index}, this)">
-            `;
-            favoriteNameElement.querySelector('input').focus();
+        function updateFavoriteName(index) {
+            favorites[index].name = document.getElementById(`fav-name-${index}`).value;
+            localStorage.setItem("favorites", JSON.stringify(favorites));
         }
 
-        function handleRenameKeyPress(event, index, input) {
-            if (event.key === 'Enter') {
-                finishRename(index, input.value);
-            }
+        function loadFavorite(index) {
+            order = { ...favorites[index].order };
+            updateOrderSummary();
         }
 
-        function renameFavorite(index) {
-            startRename(index);
-        }
-
-        function finishRename(index, newName) {
-            if (newName.trim()) {
-                favorites[index].name = newName.trim();
-                localStorage.setItem('favorites', JSON.stringify(favorites));
+        function deleteFavorite(index) {
+            if (confirm("Are you sure you want to delete this favorite?")) {
+                favorites.splice(index, 1);
+                localStorage.setItem("favorites", JSON.stringify(favorites));
                 updateFavorites();
             }
         }
 
-        function deleteFavorite(index) {
-            favorites.splice(index, 1);
-            localStorage.setItem('favorites', JSON.stringify(favorites));
-            updateFavorites();
-        }
-
-        function loadFavorite(index) {
-            order = {...favorites[index] };
-            delete order.name; // Remove the name property from the loaded order
-            updateOrderSummary();
-        }
-
         function completeOrder() {
-            const orderSummary = document.getElementById("order-list");
-            const orderName = document.getElementById("order-name").value;
-            const subtotal = document.getElementById("subtotal").textContent;
+            if (!Object.keys(order).length) {
+                alert("Add items to order before completing!");
+                return;
+            }
 
-            const orderSummaryText = orderSummary.innerHTML.replace(/<ul>/g, '').replace(/<\/ul>/g, '').replace(/<li>/g, '* ').replace(/<\/li>/g, '\n');
-
-            const embed = {
-                "title": "Order Summary",
-                "description": `${orderName}\n\n${orderSummaryText}`,
-                "fields": [
-                    {
-                        "name": "Subtotal",
-                        "value": `$${subtotal}`,
-                        "inline": true
-                    }
-                ],
-                "color": 0x0099ff
-            };
-
-            const orderData = {
-                "content": "",
-                "embeds": [embed],
-                "username": "MRP-Dreamworks",
-                "avatar_url": "https://example.com/avatar.png"
-            };
-
-            fetch('https://discord.com/api/webhooks/1304960414563700786/1OXg_6GHSgUYSjnvz8lj0JGTb08xO5bBSNTyiXdz_agxJ_WI-DUFx-VH9PpZG7Hbbd1c', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(orderData)
-            })
-           .then(response => response.json())
-           .then(data => console.log(data))
-           .catch(error => console.error(error));
-
+            alert("Order completed!");
             clearOrder();
         }
     </script>
