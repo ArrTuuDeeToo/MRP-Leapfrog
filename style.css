@@ -1,0 +1,56 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #2e2e2e;
+  color: #f2f2f2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  gap: 20px;
+}
+
+.menu,.summary {
+  background-color: #444;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+}
+
+h2 {
+  text-align: center;
+}
+
+.items,.discounts {
+  margin-top: 15px;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.category {
+  margin-top: 15px;
+}
+
+.category h3 {
+  margin-top: 0;
+}
+
+button {
+  background-color: #777;
+  color: white;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #555;
+}
