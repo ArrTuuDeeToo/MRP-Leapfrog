@@ -129,10 +129,10 @@
             <p>Subtotal: $<span id="subtotal">0.00</span></p>
 
             <label class="discount">
-                <input type="checkbox" id="discount50"> 50% Discount
+                <input type="checkbox" id="discount30"> 30% Discount
             </label>
             <label class="discount">
-                <input type="checkbox" id="discount5"> 5% Discount
+                <input type="checkbox" id="discount40"> 40% Employee Discount
             </label>
 
             <input type="text" id="order-name" placeholder="Enter order name">
@@ -166,23 +166,6 @@
                 { name: "🍃 Mint Frappe", price: 200 },
                 { name: "🍵 Matcha Latte", price: 200 },
                 { name: "🥤 Froggy Shake", price: 250 }
-            ],
-            "Matcha Latte Specials": [
-                { name: "🍵 10 Matcha Lattes", price: 1600 },
-                { name: "🍵 20 Matcha Lattes", price: 2500 },
-                { name: "🍵 30 Matcha Lattes", price: 3500 },
-                { name: "🍵 40 Matcha Lattes", price: 4500 },
-                { name: "🍵 50 Matcha Lattes", price: 5500 },
-                { name: "🍵 100 Matcha Lattes", price: 9000 }
-            ],
-            "Specials": [
-                { name: "🍹 The Froggy Beginning", price: 5000 },
-                { name: "🥤 32 Froggy Shakes", price: 5000 }
-            ],
-            "Meal Deals": [
-                { name: "🐸 The Leaping Nibbles", price: 1200 },
-                { name: "🐸 Froggy Snacks", price: 1800 },
-                { name: "🐸 An Amazing, Ribbiting Lunch", price: 2500 }
             ]
         };
 
@@ -216,8 +199,8 @@
         function updateOrderSummary() {
             const orderList = document.getElementById("order-list");
             const subtotal = document.getElementById("subtotal");
-            const discount50 = document.getElementById("discount50").checked;
-            const discount5 = document.getElementById("discount5").checked;
+            const discount30 = document.getElementById("discount30").checked;
+            const discount40 = document.getElementById("discount40").checked;
 
             orderList.innerHTML = "";
             let subtotalValue = 0;
@@ -229,10 +212,10 @@
                 orderSummaryText += `<li>${item.quantity}x ${itemName} - $${item.totalPrice.toFixed(2)}</li>`;
             }
 
-            if (discount50) {
-                subtotalValue *= 0.5;
-            } else if (discount5) {
-                subtotalValue *= 0.95;
+            if (discount30) {
+                subtotalValue *= 0.7;
+            } else if (discount40) {
+                subtotalValue *= 0.6;
             }
 
             orderList.innerHTML = Object.keys(order).length ? `<ul>${orderSummaryText}</ul>` : "No items added";
@@ -257,15 +240,13 @@
             }
 
             const orderName = document.getElementById("order-name").value || "Anonymous";
-            const orderAvatarURL = "your-avatar-url.png";  // Replace with your logo URL or customize dynamically
-
             const orderSummary = Object.keys(order).map(itemName => {
                 return `${order[itemName].quantity}x ${itemName} - $${order[itemName].totalPrice.toFixed(2)}`;
             }).join("\n");
 
             const data = {
                 username: "heysiri",
-                avatar_url: orderAvatarURL,
+                avatar_url: "your-avatar-url.png",
                 content: "Your order has been completed!",
                 embeds: [{
                     title: "Order Summary",
@@ -274,20 +255,27 @@
                 }]
             };
 
-            fetch("https://discord.com/api/webhooks/1304933522385010699/_L8gMHmG8VFshVgB4zrINZoX6srFfeoSy7XAtCQS4vhpfJW-Ax2GsbH24UFKCQE4iShy", {
+            const webhookUrl = "https://discord.com/api/webhooks/{webhook_id}/{webhook_token}";
+
+            console.log("Sending data to webhook...");
+
+            fetch(webhookUrl, {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(data)
-            }).then(response => {
+            })
+            .then(response => {
                 if (response.ok) {
                     alert("Order completed successfully!");
                     clearOrder();
                 } else {
-                    alert("Failed to complete order.");
+                    response.text().then(text => {
+                        alert(`Failed to complete order: ${text}`);
+                    });
                 }
-            }).catch(error => {
+            })
+            .catch(error => {
+                console.error("Error sending webhook:", error);
                 alert("Error occurred while completing the order.");
             });
         }
