@@ -17,21 +17,20 @@
     color: #ffffff;
     }
 
-.container {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 20px;
-  max-width: 1400px;
-  margin: 0 auto
+ .container {
+            display: grid;
+            grid-template-columns: 2fr 1fr);
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
 
        .left-panel {
-            flex: 2;
-            min-width: 400px;
+            grid-column: 1;
         }
 
        .right-panel {
-            flex: 1;
-            min-width: 300px;
+            grid-column: 2;
         }
 
        .card {
