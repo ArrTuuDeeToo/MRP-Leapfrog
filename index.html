@@ -7,7 +7,7 @@
     <style>
         /* Set background image and overall page styling */
         body {
-            background-image: url('https://cdn.discordapp.com/attachments/1280957713651601539/1280957713949655084/Leap_Frog.jpg?ex=6732f596&is=6731a416&hm=60af1a01b632f3d14edc9b5d7985bf2d9020307c1c1b1d9ae59eb8e402cc0cfd&'); /* Replace with your image URL */
+            background-image: url('https://cdn.discordapp.com/attachments/1280957713651601539/1280957713949655084/Leap_Frog.jpg');
             background-size: cover;
             background-position: center;
             color: #f2f2f2;
@@ -25,7 +25,7 @@
         #logo {
             margin-top: 20px;
             margin-bottom: 20px;
-            width: 150px; /* Adjust logo size */
+            width: 150px;
         }
 
         /* Main container for order summary */
@@ -34,18 +34,18 @@
             flex-direction: row;
             justify-content: space-between;
             padding: 20px;
-            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+            background-color: rgba(0, 0, 0, 0.7);
             border-radius: 10px;
-            width: 90%; /* Adjust container width to fit smaller panels */
-            max-width: 1000px; /* Maximum container width */
-            flex-wrap: wrap; /* Allow wrapping on smaller screens */
-            gap: 20px; /* Add some space between panels */
+            width: 90%;
+            max-width: 1100px;
+            flex-wrap: wrap;
+            gap: 20px;
         }
 
         .panel {
             flex: 1;
-            min-width: 300px; /* Minimum panel width */
-            max-width: 450px; /* Maximum panel width */
+            min-width: 320px;
+            max-width: 500px;
             margin: 0;
             background-color: #444;
             padding: 20px;
@@ -56,14 +56,21 @@
             color: #f2f2f2;
         }
 
+        /* Set grid for menu items */
+        #item-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Two items per row */
+            gap: 10px;
+        }
+
         .item {
-            margin: 5px;
             padding: 8px;
             border: none;
             background-color: #666;
             color: #f2f2f2;
             border-radius: 5px;
             cursor: pointer;
+            text-align: center;
         }
 
         .item:hover {
@@ -107,7 +114,7 @@
 </head>
 <body>
     <!-- Logo at the top -->
-    <img id="logo" src="https://media.discordapp.net/attachments/1200122767916412959/1297018009403261079/logo_banner.png?ex=673360e6&is=67320f66&hm=73099846d5dcb0fc9a8f87af5b39e05423ce5f6f3025e7a7987ae8683d9d1c99&=&format=webp&quality=lossless&width=741&height=417" alt="Logo"> <!-- Replace with your logo URL -->
+    <img id="logo" src="https://media.discordapp.net/attachments/1200122767916412959/1297018009403261079/logo_banner.png" alt="Logo">
 
     <!-- Main container for order summary -->
     <div class="container">
@@ -249,17 +256,15 @@
                 return;
             }
 
-            // Get dynamic inputs for username, avatar, etc.
             const orderName = document.getElementById("order-name").value || "Anonymous";
             const orderAvatarURL = "your-avatar-url.png";  // Replace with your logo URL or customize dynamically
 
-            // Webhook logic
             const orderSummary = Object.keys(order).map(itemName => {
                 return `${order[itemName].quantity}x ${itemName} - $${order[itemName].totalPrice.toFixed(2)}`;
             }).join("\n");
 
             const data = {
-                username: heysiri,
+                username: "heysiri",
                 avatar_url: orderAvatarURL,
                 content: "Your order has been completed!",
                 embeds: [{
