@@ -34,7 +34,184 @@
         grid-column: 2;
     }
 
-    /* Rest of your CSS remains the same... */
+    .card {
+        background-color: #3a3a3a;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        margin-bottom: 10px;
+    }
+
+    .card h3 {
+        text-align: center;
+        color: #f2f2f2;
+        margin-bottom: 15px;
+        padding: 10px;
+        border-bottom: 2px solid #4a4a4a;
+    }
+
+    .item-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: flex-start;
+    }
+
+    .item {
+        background-color: #444;
+        padding: 12px;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex: 1 1 45%;
+        max-width: 400px;
+        margin-bottom: 5px;
+    }
+
+    .item-name {
+        font-size: 1rem;
+        color: #ffffff;
+        flex: 1;
+        white-space: nowrap;
+    }
+
+    .quantity-buttons {
+        display: flex;
+        gap: 5px;
+    }
+
+    .quantity-buttons button {
+        background-color: #555;
+        color: #ffffff;
+        border: none;
+        padding: 6px 8px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+
+    .quantity-buttons button:hover {
+        background-color: #666;
+    }
+
+    .discount-options {
+        display: flex;
+        gap: 10px;
+        padding: 10px;
+        background-color: #444;
+        border-radius: 6px;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .discount-options label {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    #order-list ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    #order-list li {
+        padding: 8px 0;
+        border-bottom: 1px solid #4a4a4a;
+    }
+
+    .subtotal {
+        font-weight: bold;
+        margin-top: 15px;
+        text-align: right;
+        padding: 10px;
+        background-color: #444;
+        border-radius: 6px;
+    }
+
+    .order-actions {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 15px;
+    }
+
+    .order-actions button {
+        background-color: #555;
+        color: #ffffff;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+
+    .order-actions button:hover {
+        background-color: #666;
+    }
+
+    .favorite-item {
+        background-color: #444;
+        margin: 10px 0;
+        padding: 15px;
+        border-radius: 6px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .favorite-name {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .favorite-name span {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .favorite-name input {
+        flex: 1;
+        background: #555;
+        border: 1px solid #666;
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+    }
+
+    .favorite-actions {
+        display: flex;
+        gap: 5px;
+    }
+
+    .favorite-actions button {
+        background-color: #555;
+        color: #ffffff;
+        border: none;
+        padding: 8px 15px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+
+    .favorite-actions button:hover {
+        background-color: #666;
+    }
+
+    .delete-button {
+        background-color: #873535!important;
+    }
+
+    .delete-button:hover {
+        background-color: #a84242!important;
+    }
     </style>
 </head>
 <body>
