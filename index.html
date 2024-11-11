@@ -256,12 +256,19 @@
         }
 
 function completeOrder() {
+    const orderName = document.getElementById("order-name").value.trim(); // Get and trim the name input
+
+    // Check if the order name is provided
+    if (!orderName) {
+        alert("Please enter your name to complete the order.");
+        return; // Stop the function if no name is provided
+    }
+
     if (Object.keys(order).length === 0) {
         alert("Add items to order before completing!");
         return;
     }
 
-    const orderName = document.getElementById("order-name").value || "Anonymous";
     const orderSummary = Object.keys(order).map(itemName => {
         return `${order[itemName].quantity}x ${itemName} - $${order[itemName].totalPrice.toFixed(2)}`;
     }).join("\n");
@@ -285,7 +292,7 @@ function completeOrder() {
         avatar_url: "https://cdn.discordapp.com/attachments/1200122767916412959/1297018173580771358/MomentsRP512x512.png?ex=6733610e&is=67320f8e&hm=1624e8720b56232ea2ae68bcb1bf7449916c9b8b1bac89025753a19a28ae543d&", // Optional: Add your bot's avatar image URL
         content: "A new order has been completed!",
         embeds: [{
-            title: `Order Summary for ${orderName}`,
+            title: `Order Summary by ${orderName}`,
             description: `
                 **Items:**
                 \n${orderSummary}
@@ -320,8 +327,7 @@ function completeOrder() {
         console.error("Error sending webhook:", error);
         alert("Error occurred while completing the order.");
     });
-}  alert("Error occurred while completing the order.");
-            });
+}
         }
 
         generateMenu();
