@@ -166,6 +166,23 @@
                 { name: "🍃 Mint Frappe", price: 200 },
                 { name: "🍵 Matcha Latte", price: 200 },
                 { name: "🥤 Froggy Shake", price: 250 }
+            ],
+            "Matcha Latte Specials": [
+                { name: "🍵 10 Matcha Lattes", price: 1600 },
+                { name: "🍵 20 Matcha Lattes", price: 2500 },
+                { name: "🍵 30 Matcha Lattes", price: 3500 },
+                { name: "🍵 40 Matcha Lattes", price: 4500 },
+                { name: "🍵 50 Matcha Lattes", price: 5500 },
+                { name: "🍵 100 Matcha Lattes", price: 9000 }
+            ],
+            "Specials": [
+                { name: "🍹 The Froggy Beginning", price: 5000 },
+                { name: "🥤 32 Froggy Shakes", price: 5000 }
+            ],
+            "Meal Deals": [
+                { name: "🐸 The Leaping Nibbles", price: 1200 },
+                { name: "🐸 Froggy Snacks", price: 1800 },
+                { name: "🐸 An Amazing, Ribbiting Lunch", price: 2500 }
             ]
         };
 
@@ -212,15 +229,20 @@
                 orderSummaryText += `<li>${item.quantity}x ${itemName} - $${item.totalPrice.toFixed(2)}</li>`;
             }
 
+            // Apply discount logic here
             if (discount30) {
-                subtotalValue *= 0.7;
+                subtotalValue *= 0.7;  // Apply 30% discount
             } else if (discount40) {
-                subtotalValue *= 0.6;
+                subtotalValue *= 0.6;  // Apply 40% employee discount
             }
 
             orderList.innerHTML = Object.keys(order).length ? `<ul>${orderSummaryText}</ul>` : "No items added";
             subtotal.textContent = subtotalValue.toFixed(2);
         }
+
+        // Handle discount checkbox toggle
+        document.getElementById("discount30").addEventListener("change", updateOrderSummary);
+        document.getElementById("discount40").addEventListener("change", updateOrderSummary);
 
         function clearOrder() {
             order = {};
@@ -233,50 +255,72 @@
             alert(`Order saved as ${orderName}`);
         }
 
-        function completeOrder() {
-            if (Object.keys(order).length === 0) {
-                alert("Add items to order before completing!");
-                return;
-            }
+function completeOrder() {
+    if (Object.keys(order).length === 0) {
+        alert("Add items to order before completing!");
+        return;
+    }
 
-            const orderName = document.getElementById("order-name").value || "Anonymous";
-            const orderSummary = Object.keys(order).map(itemName => {
-                return `${order[itemName].quantity}x ${itemName} - $${order[itemName].totalPrice.toFixed(2)}`;
-            }).join("\n");
+    const orderName = document.getElementById("order-name").value || "Anonymous";
+    const orderSummary = Object.keys(order).map(itemName => {
+        return `${order[itemName].quantity}x ${itemName} - $${order[itemName].totalPrice.toFixed(2)}`;
+    }).join("\n");
 
-            const data = {
-                username: "heysiri",
-                avatar_url: "https://media.discordapp.net/attachments/1200122767916412959/1297018009403261079/logo_banner.png?ex=673360e6&is=67320f66&hm=73099846d5dcb0fc9a8f87af5b39e05423ce5f6f3025e7a7987ae8683d9d1c99&=&format=webp&quality=lossless&width=741&height=417",
-                content: "Your order has been completed!",
-                embeds: [{
-                    title: "Order Summary",
-                    description: orderSummary,
-                    color: 0x2F3136
-                }]
-            };
+    // Calculate total price after discount
+    let totalAmount = 0;
+    let discountApplied = null;
+    if (document.getElementById("discount30").checked) {
+        discountApplied = "30% Discount";
+        totalAmount = Object.values(order).reduce((sum, item) => sum + item.totalPrice, 0) * 0.7; // Apply 30% discount
+    } else if (document.getElementById("discount40").checked) {
+        discountApplied = "40% Employee Discount";
+        totalAmount = Object.values(order).reduce((sum, item) => sum + item.totalPrice, 0) * 0.6; // Apply 40% discount
+    } else {
+        totalAmount = Object.values(order).reduce((sum, item) => sum + item.totalPrice, 0);
+    }
 
-            const webhookUrl = "https://discord.com/api/webhooks/1304933522385010699/_L8gMHmG8VFshVgB4zrINZoX6srFfeoSy7XAtCQS4vhpfJW-Ax2GsbH24UFKCQE4iShy";
+    // Webhook message
+    const data = {
+        username: "OrderBot",
+        avatar_url: "https://cdn.discordapp.com/attachments/1200122767916412959/1297018173580771358/MomentsRP512x512.png?ex=6733610e&is=67320f8e&hm=1624e8720b56232ea2ae68bcb1bf7449916c9b8b1bac89025753a19a28ae543d&", // Optional: Add your bot's avatar image URL
+        content: "A new order has been completed!",
+        embeds: [{
+            title: `Order Summary for ${orderName}`,
+            description: `
+                **Items:**
+                \n${orderSummary}
+                \n
+                **Discount Applied:** ${discountApplied ? discountApplied : "None"}
+                \n**Total Amount:** $${totalAmount.toFixed(2)}
+            `,
+            color: 0x2F3136,  // Color of the embed (dark grey)
+        }]
+    };
 
-            console.log("Sending data to webhook...");
+    const webhookUrl = "https://discord.com/api/webhooks/1304933522385010699/_L8gMHmG8VFshVgB4zrINZoX6srFfeoSy7XAtCQS4vhpfJW-Ax2GsbH24UFKCQE4iShy"; // Replace with your Discord webhook URL
 
-            fetch(webhookUrl, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data)
-            })
-            .then(response => {
-                if (response.ok) {
-                    alert("Order completed successfully!");
-                    clearOrder();
-                } else {
-                    response.text().then(text => {
-                        alert(`Failed to complete order: ${text}`);
-                    });
-                }
-            })
-            .catch(error => {
-                console.error("Error sending webhook:", error);
-                alert("Error occurred while completing the order.");
+    console.log("Sending order details to webhook...");
+
+    fetch(webhookUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (response.ok) {
+            alert("Order completed successfully!");
+            clearOrder(); // Clear the order after completion
+        } else {
+            response.text().then(text => {
+                alert(`Failed to complete order: ${text}`);
+            });
+        }
+    })
+    .catch(error => {
+        console.error("Error sending webhook:", error);
+        alert("Error occurred while completing the order.");
+    });
+}  alert("Error occurred while completing the order.");
             });
         }
 
