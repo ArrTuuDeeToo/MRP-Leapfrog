@@ -5,132 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Item Order Summary</title>
     <style>
-        body {
-            background-image: url('https://cdn.discordapp.com/attachments/1280957713651601539/1280957713949655084/Leap_Frog.jpg?ex=6732f596&is=6731a416&hm=60af1a01b632f3d14edc9b5d7985bf2d9020307c1c1b1d9ae59eb8e402cc0cfd&');
-            background-size: 100% 100%;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            color: #ffffff;
-        }
-
+        /* Basic styling for layout and buttons */
         .container {
             display: flex;
-            max-width: 1400px;
-            margin: 0 auto;
-            gap: 20px;
-        }
-
-        .left-panel {
-            flex: 2;
-            min-width: 400px;
-        }
-
-        .right-panel {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .card {
-            background-color: #3a3a3a;
+            flex-direction: row;
+            justify-content: space-between;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            margin-bottom: 10px;
-        }
-
-        .card h3 {
-            text-align: center;
             color: #f2f2f2;
-            margin-bottom: 15px;
-            padding: 10px;
-            border-bottom: 2px solid #4a4a4a;
+            font-family: Arial, sans-serif;
+            background-color: #333;
         }
-
-        .item-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .item {
+        .panel {
+            flex: 1;
+            margin: 0 10px;
             background-color: #444;
-            padding: 12px;
-            border-radius: 6px;
-            color: #ffffff;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .item:hover {
-            background-color: #666;
-        }
-
-        .subtotal {
-            font-weight: bold;
-            margin-top: 15px;
-            text-align: right;
-            padding: 10px;
-            background-color: #444;
-            border-radius: 6px;
-        }
-
-        .order-actions button {
-            background-color: #555;
-            color: #ffffff;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
+            padding: 20px;
             border-radius: 5px;
-            transition: background-color 0.3s;
         }
-
-        .order-actions button:hover {
+        .panel h3 {
+            color: #f2f2f2;
+        }
+        .item {
+            margin: 5px;
+            padding: 8px;
+            border: none;
             background-color: #666;
+            color: #f2f2f2;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .item:hover {
+            background-color: #777;
+        }
+        .discount {
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Left Panel: Item Menu -->
-        <div class="left-panel">
-            <div class="card" id="item-menu">
-                <h3>Item Menu</h3>
-                <div class="item-grid" id="item-grid">
-                    <!-- Items will be displayed here -->
-                </div>
-            </div>
+        <div class="panel" id="menu">
+            <h3>Menu</h3>
+            <div id="item-grid"></div>
         </div>
-
-        <!-- Right Panel: Favorites, Discounts and Order Summary -->
-        <div class="right-panel">
-            <!-- Favorites -->
-            <div class="card" id="favorites">
-                <h3>Favorite Orders</h3>
-                <div id="favorites-list">No favorite orders saved</div>
-            </div>
-
-            <!-- Discount Options -->
-            <div class="discount-options">
-                <label><input type="checkbox" id="discount50" onchange="updateOrderSummary()"> 50% Discount</label>
-                <label><input type="checkbox" id="discount5" onchange="updateOrderSummary()"> 5% Discount</label>
-            </div>
-
-            <!-- Order Summary -->
-            <div class="card" id="order-summary">
-                <h3>Order Summary</h3>
-                <input type="text" id="order-name" placeholder="Order Name">
-                <div id="order-list">No items added</div>
-                <p class="subtotal">Subtotal: $<span id="subtotal">0.00</span></p>
-                <div class="order-actions">
-                    <button onclick="clearOrder()">Clear Order</button>
-                    <button onclick="saveAsFavorite()">Save as Favorite</button>
-                    <button onclick="completeOrder()">Complete Order</button>
-                </div>
-            </div>
+        <div class="panel">
+            <h3>Order Summary</h3>
+            <ul id="order-list">No items added</ul>
+            <p>Subtotal: $<span id="subtotal">0.00</span></p>
+            <label class="discount">
+                <input type="checkbox" id="discount50"> 50% Discount
+            </label>
+            <label class="discount">
+                <input type="checkbox" id="discount5"> 5% Discount
+            </label>
+            <input type="text" id="order-name" placeholder="Enter order name">
+            <button onclick="clearOrder()">Clear Order</button>
+            <button onclick="saveAsFavorite()">Save as Favorite</button>
+            <button onclick="completeOrder()">Complete Order</button>
+        </div>
+        <div class="panel">
+            <h3>Favorite Orders</h3>
+            <div id="favorites-list">No favorite orders saved</div>
         </div>
     </div>
 
@@ -144,42 +79,42 @@
 
         const menuItems = {
             "Food": [
-                { name: "Salad", price: 150 },
-                { name: "Pad Thai", price: 200 },
-                { name: "Sashimi Mix", price: 250 }
+                { name: "🥗 Salad", price: 150 },
+                { name: "🍜 Pad Thai", price: 200 },
+                { name: "🍣 Sashimi Mix", price: 250 }
             ],
             "Desserts": [
-                { name: "Froggy Bites", price: 150 },
-                { name: "Froggy Donuts", price: 150 },
-                { name: "Froggy Cupcakes", price: 150 },
-                { name: "Froggy Cakes", price: 200 }
+                { name: "🍪 Froggy Bites", price: 150 },
+                { name: "🍩 Froggy Donuts", price: 150 },
+                { name: "🧁 Froggy Cupcakes", price: 150 },
+                { name: "🍰 Froggy Cakes", price: 200 }
             ],
             "Drinks": [
-                { name: "Choccy Milk", price: 150 },
-                { name: "Fresh Lemonade", price: 180 },
-                { name: "Mint Frappe", price: 200 },
-                { name: "Matcha Latte", price: 200 },
-                { name: "Froggy Shake", price: 250 }
+                { name: "🥛 Choccy Milk", price: 150 },
+                { name: "🍋 Fresh Lemonade", price: 180 },
+                { name: "🍃 Mint Frappe", price: 200 },
+                { name: "🍵 Matcha Latte", price: 200 },
+                { name: "🥤 Froggy Shake", price: 250 }
             ],
             "Matcha Latte Specials": [
-                { name: "10 Matcha Lattes", price: 1600 },
-                { name: "20 Matcha Lattes", price: 2500 },
-                { name: "30 Matcha Lattes", price: 3500 },
-                { name: "40 Matcha Lattes", price: 4500 },
-                { name: "50 Matcha Lattes", price: 5500 },
-                { name: "100 Matcha Lattes", price: 9000 }
+                { name: "🍵 10 Matcha Lattes", price: 1600 },
+                { name: "🍵 20 Matcha Lattes", price: 2500 },
+                { name: "🍵 30 Matcha Lattes", price: 3500 },
+                { name: "🍵 40 Matcha Lattes", price: 4500 },
+                { name: "🍵 50 Matcha Lattes", price: 5500 },
+                { name: "🍵 100 Matcha Lattes", price: 9000 }
             ],
             "Specials": [
-                { name: "The Froggy Beginning", price: 5000 },
-                { name: "32 Froggy Shakes", price: 5000 }
+                { name: "🍹 The Froggy Beginning", price: 5000 },
+                { name: "🥤 32 Froggy Shakes", price: 5000 }
             ],
             "Meal Deals": [
-                { name: "The Leaping Nibbles", price: 1200 },
-                { name: "Froggy Snacks", price: 1800 },
-                { name: "An Amazing, Ribbiting Lunch", price: 2500 },
-                { name: "Frogging Treats", price: 2700 },
-                { name: "The Croaking Exciting Meal", price: 4000 },
-                { name: "The Tortoise Special", price: 6000 }
+                { name: "🐸 The Leaping Nibbles", price: 1200 },
+                { name: "🐸 Froggy Snacks", price: 1800 },
+                { name: "🐸 An Amazing, Ribbiting Lunch", price: 2500 },
+                { name: "🐸 Frogging Treats", price: 2700 },
+                { name: "🐸 The Croaking Exciting Meal", price: 4000 },
+                { name: "🐢 The Tortoise Special", price: 6000 }
             ]
         };
 
@@ -240,7 +175,7 @@
                 subtotalValue *= 0.95;
             }
 
-            orderList.innerHTML = Object.keys(order).length ? `<ul>${orderSummaryText}</ul>` : "No items added";
+            orderList.innerHTML = orderSummaryText || "No items added";
             subtotal.textContent = subtotalValue.toFixed(2);
         }
 
@@ -257,8 +192,56 @@
             clearOrder();
         }
 
-        function completeOrder() {
-            alert("Order completed!");
+        async function completeOrder() {
+            const orderName = document.getElementById("order-name").value || "Order";
+            const orderItems = Object.entries(order)
+                .map(([name, { quantity, totalPrice }]) => `${quantity}x ${name} - $${totalPrice.toFixed(2)}`)
+                .join("\n");
+
+            const subtotal = document.getElementById("subtotal").textContent;
+
+            const webhookUrl = "YOUR_DISCORD_WEBHOOK_URL";
+            const payload = {
+                username: "Order Bot",
+                avatar_url: "https://i.imgur.com/a/froggy_avatar.png",
+                embeds: [
+                    {
+                        title: `📝 ${orderName} - Completed Order`,
+                        description: orderItems || "No items",
+                        color: 3066993,  // Green color
+                        fields: [
+                            {
+                                name: "Subtotal",
+                                value: `$${subtotal}`,
+                                inline: true
+                            },
+                            {
+                                name: "Discount Applied",
+                                value: document.getElementById("discount50").checked
+                                    ? "50% Discount"
+                                    : document.getElementById("discount5").checked
+                                    ? "5% Discount"
+                                    : "No Discount",
+                                inline: true
+                            }
+                        ],
+                        footer: {
+                            text: "Thank you for your order!",
+                        },
+                        timestamp: new Date().toISOString()
+                    }
+                ]
+            };
+
+            await fetch(webhookUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(payload)
+            });
+
+            alert("Order completed and sent to Discord!");
             clearOrder();
         }
 
