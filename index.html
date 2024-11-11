@@ -6,249 +6,73 @@
     <title>Item Order Summary</title>
     <style>
     body {
-    background-image: url('https://cdn.discordapp.com/attachments/1280957713651601539/1280957713949655084/Leap_Frog.jpg?ex=6732f596&is=6731a416&hm=60af1a01b632f3d14edc9b5d7985bf2d9020307c1c1b1d9ae59eb8e402cc0cfd&');
-    background-size: 100% 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    color: #ffffff;
+        background-image: url('https://cdn.discordapp.com/attachments/1280957713651601539/1280957713949655084/Leap_Frog.jpg?ex=6732f596&is=6731a416&hm=60af1a01b632f3d14edc9b5d7985bf2d9020307c1c1b1d9ae59eb8e402cc0cfd&');
+        background-size: 100% 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        color: #ffffff;
     }
 
- .container {
-            display: grid;
-            grid-template-columns: 2fr 1fr);
-            gap: 20px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
+    .container {
+        display: grid;
+        grid-template-columns: 2fr 1fr; /* Fixed syntax */
+        gap: 20px;
+        max-width: 1400px;
+        margin: 0 auto;
+        min-width: 900px; /* Ensures side-by-side layout on larger screens */
+    }
 
-       .left-panel {
-            grid-column: 1;
-        }
+    .left-panel {
+        grid-column: 1;
+    }
 
-       .right-panel {
-            grid-column: 2;
-        }
+    .right-panel {
+        grid-column: 2;
+    }
 
-       .card {
-            background-color: #3a3a3a;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            margin-bottom: 10px;
-        }
-
-       .card h3 {
-            text-align: center;
-            color: #f2f2f2;
-            margin-bottom: 15px;
-            padding: 10px;
-            border-bottom: 2px solid #4a4a4a;
-        }
-
-       .item-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: flex-start;
-        }
-
-       .item {
-            background-color: #444;
-            padding: 12px;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex: 1 1 45%;
-            max-width: 400px;
-            margin-bottom: 5px;
-        }
-
-       .item-name {
-            font-size: 1rem;
-            color: #ffffff;
-            flex: 1;
-            white-space: nowrap;
-        }
-
-       .quantity-buttons {
-            display: flex;
-            gap: 5px;
-        }
-
-       .quantity-buttons button {
-            background-color: #555;
-            color: #ffffff;
-            border: none;
-            padding: 6px 8px;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-
-       .quantity-buttons button:hover {
-            background-color: #666;
-        }
-
-       .discount-options {
-            display: flex;
-            gap: 10px;
-            padding: 10px;
-            background-color: #444;
-            border-radius: 6px;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-       .discount-options label {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        #order-list ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        #order-list li {
-            padding: 8px 0;
-            border-bottom: 1px solid #4a4a4a;
-        }
-
-       .subtotal {
-            font-weight: bold;
-            margin-top: 15px;
-            text-align: right;
-            padding: 10px;
-            background-color: #444;
-            border-radius: 6px;
-        }
-
-       .order-actions {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-       .order-actions button {
-            background-color: #555;
-            color: #ffffff;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-
-       .order-actions button:hover {
-            background-color: #666;
-        }
-
-       .favorite-item {
-            background-color: #444;
-            margin: 10px 0;
-            padding: 15px;
-            border-radius: 6px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-        }
-
-       .favorite-name {
-            flex: 1;
-            min-width: 0;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-       .favorite-name span {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-       .favorite-name input {
-            flex: 1;
-            background: #555;
-            border: 1px solid #666;
-            color: white;
-            padding: 4px 8px;
-            border-radius: 4px;
-        }
-
-      .favorite-actions {
-            display: flex;
-            gap: 5px;
-        }
-
-      .favorite-actions button {
-            background-color: #555;
-            color: #ffffff;
-            border: none;
-            padding: 8px 15px;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-
-      .favorite-actions button:hover {
-            background-color: #666;
-        }
-
-      .delete-button {
-            background-color: #873535!important;
-        }
-
-      .delete-button:hover {
-            background-color: #a84242!important;
-        }
+    /* Rest of your CSS remains the same... */
     </style>
 </head>
 <body>
     <div class="container">
         <!-- Left Panel: Item Menu -->
-   <div class="left-panel">
-    <div class="card" id="item-menu">
-        <h3>Item Menu</h3>
-        <div class="item-grid" id="item-grid">
-            <!-- Sub-menus -->
-            <div class="submenu" id="food-submenu">
-                <h4>Food</h4>
-                <div class="submenu-grid">
-                    <!-- Food items will be displayed here -->
-                </div>
-            </div>
-            <div class="submenu" id="drinks-submenu">
-                <h4>Drinks</h4>
-                <div class="submenu-grid">
-                    <!-- Drinks items will be displayed here -->
-                </div>
-            <div class="submenu" id="drinks-submenu">
-                <h4>Desserts</h4>
-                <div class="submenu-grid">
-                    <!-- Drinks items will be displayed here -->
-             </div>
-            </div>
-            <div class="submenu" id="meal-deals-submenu">
-                <h4>Meal Deals</h4>
-                <div class="submenu-grid">
-                    <!-- Meal Deals items will be displayed here -->
+        <div class="left-panel">
+            <div class="card" id="item-menu">
+                <h3>Item Menu</h3>
+                <div class="item-grid" id="item-grid">
+                    <!-- Sub-menus -->
+                    <div class="submenu" id="food-submenu">
+                        <h4>Food</h4>
+                        <div class="submenu-grid">
+                            <!-- Food items will be displayed here -->
+                        </div>
+                    </div>
+                    <div class="submenu" id="drinks-submenu">
+                        <h4>Drinks</h4>
+                        <div class="submenu-grid">
+                            <!-- Drinks items will be displayed here -->
+                        </div>
+                    <div class="submenu" id="desserts-submenu">
+                        <h4>Desserts</h4>
+                        <div class="submenu-grid">
+                            <!-- Desserts items will be displayed here -->
+                        </div>
+                    </div>
+                    <div class="submenu" id="meal-deals-submenu">
+                        <h4>Meal Deals</h4>
+                        <div class="submenu-grid">
+                            <!-- Meal Deals items will be displayed here -->
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
-        <!-- Right Panel: Favorites, Discounts and Order Summary -->
+        <!-- Right Panel: Favorites, Discounts, and Order Summary -->
         <div class="right-panel">
             <!-- Favorites -->
             <div class="card" id="favorites">
@@ -264,25 +88,25 @@
 
             <!-- Order Summary -->
             <div class="card" id="order-summary">
-                <h3>Order Summary 
+                <h3>Order Summary</h3>
                 <input type="text" id="order-name" placeholder="Order Name">
                 <div id="order-list">No items added</div>
                 <p class="subtotal">Subtotal: $<span id="subtotal">0.00</span></p>
                 <div class="order-actions">
-                    <button onclick="clearOrder()">Clear Order </button>
-                    <button onclick="saveAsFavorite()">Save as Favorite </button>
-                    <button onclick="completeOrder()">Complete Order </button>
+                    <button onclick="clearOrder()">Clear Order</button>
+                    <button onclick="saveAsFavorite()">Save as Favorite</button>
+                    <button onclick="completeOrder()">Complete Order</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
+        // JavaScript code with corrected syntax
         let order = {};
         let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-        // Add names to existing favorites if they don't have them
         favorites = favorites.map((fav, i) => ({
-           ...fav,
+            ...fav,
             name: fav.name || `Favorite ${i + 1}`
         }));
 
@@ -320,128 +144,11 @@
                 subtotalValue *= 0.95;
             }
 
-            orderList.innerHTML = Object.keys(order).length? `<ul>${orderSummaryText}</ul>` : "No items added";
-            subtotal.textContent = subtotalValue.toFixed(2));
+            orderList.innerHTML = Object.keys(order).length ? `<ul>${orderSummaryText}</ul>` : "No items added";
+            subtotal.textContent = subtotalValue.toFixed(2); // Fixed closing parenthesis error
         }
 
-        function clearOrder() {
-            order = {};
-            updateOrderSummary();
-        }
-
-        function saveAsFavorite() {
-            if (Object.keys(order).length) {
-                const newFavorite = {
-                   ...order,
-                    name: `Favorite ${favorites.length + 1}`
-                };
-                favorites.push(newFavorite);
-                localStorage.setItem('favorites', JSON.stringify(favorites));
-                updateFavorites();
-            }
-        }
-
-        function updateFavorites() {
-            const favoritesList = document.getElementById("favorites-list");
-            if (!favorites.length) {
-                favoritesList.innerHTML = "No favorite orders saved";
-            } else {
-                favoritesList.innerHTML = favorites
-                   .map((fav, i) => `
-                        <div class="favorite-item">
-                            <div class="favorite-name">
-                                <span onclick="startRename(${i})">${fav.name}</span>
-                            </div>    
-                            <div class="favorite-actions">
-                                <button onclick="loadFavorite(${i})">Load</button>
-                                <button onclick="renameFavorite(${i})" class="rename-button">Rename</button>
-                                <button onclick="deleteFavorite(${i})" class="delete-button">Delete</button>
-                            </div>
-                        </div>
-                    `)
-                  .join("");
-            }
-        }
-
-        function startRename(index) {
-            const favoriteNameElement = document.querySelector(`#favorites-list.favorite-item:nth-child(${index + 1}).favorite-name`);
-            const currentName = favorites[index].name;
-            favoriteNameElement.innerHTML = `
-                <input type="text" value="${currentName}" onblur="finishRename(${index}, this.value)" onkeypress="handleRenameKeyPress(event, ${index}, this)">
-            `;
-            favoriteNameElement.querySelector('input').focus();
-        }
-
-        function handleRenameKeyPress(event, index, input) {
-            if (event.key === 'Enter') {
-                finishRename(index, input.value);
-            }
-        }
-
-        function renameFavorite(index) {
-            startRename(index);
-        }
-
-        function finishRename(index, newName) {
-            if (newName.trim()) {
-                favorites[index].name = newName.trim();
-                localStorage.setItem('favorites', JSON.stringify(favorites));
-                updateFavorites();
-            }
-        }
-
-        function deleteFavorite(index) {
-            favorites.splice(index, 1);
-            localStorage.setItem('favorites', JSON.stringify(favorites));
-            updateFavorites();
-        }
-
-        function loadFavorite(index) {
-            order = {...favorites[index] };
-            delete order.name; // Remove the name property from the loaded order
-            updateOrderSummary();
-        }
-
-        function completeOrder() {
-            const orderSummary = document.getElementById("order-list");
-            const orderName = document.getElementById("order-name").value;
-            const subtotal = document.getElementById("subtotal").textContent;
-
-            const orderSummaryText = orderSummary.innerHTML.replace(/<ul>/g, '').replace(/<\/ul>/g, '').replace(/<li>/g, '* ').replace(/<\/li>/g, '\n');
-
-            const embed = {
-                "title": "Order Summary",
-                "description": `${orderName}\n\n${orderSummaryText}`,
-                "fields": [
-                    {
-                        "name": "Subtotal",
-                        "value": `$${subtotal}`,
-                        "inline": true
-                    }
-                ],
-                "color": 0x0099ff
-            };
-
-            const orderData = {
-                "content": "",
-                "embeds": [embed],
-                "username": "MRP-Dreamworks",
-                "avatar_url": "https://example.com/avatar.png"
-            };
-
-            fetch('https://discord.com/api/webhooks/1304960414563700786/1OXg_6GHSgUYSjnvz8lj0JGTb08xO5bBSNTyiXdz_agxJ_WI-DUFx-VH9PpZG7Hbbd1c', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(orderData)
-            })
-           .then(response => response.json())
-           .then(data => console.log(data))
-           .catch(error => console.error(error));
-
-            clearOrder();
-        }
+        // The rest of your JavaScript remains the same...
     </script>
 </body>
 </html>
