@@ -28,7 +28,7 @@
             width: 150px; /* Adjust logo size */
         }
 
-        /* Container for the main content */
+        /* Main container for order summary */
         .container {
             display: flex;
             flex-direction: row;
@@ -36,13 +36,17 @@
             padding: 20px;
             background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
             border-radius: 10px;
-            width: 80%;
-            max-width: 1200px;
+            width: 90%; /* Adjust container width to fit smaller panels */
+            max-width: 1000px; /* Maximum container width */
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            gap: 20px; /* Add some space between panels */
         }
 
         .panel {
             flex: 1;
-            margin: 0 10px;
+            min-width: 300px; /* Minimum panel width */
+            max-width: 450px; /* Maximum panel width */
+            margin: 0;
             background-color: #444;
             padding: 20px;
             border-radius: 5px;
@@ -244,14 +248,20 @@
                 alert("Add items to order before completing!");
                 return;
             }
-            // Send completed order to Discord via Webhook
-            const webhookURL = "Yhttps://discord.com/api/webhooks/1304933522385010699/_L8gMHmG8VFshVgB4zrINZoX6srFfeoSy7XAtCQS4vhpfJW-Ax2GsbH24UFKCQE4iShy"; // Replace with your webhook URL
-            const orderSummary = Object.keys(order).map(item => {
-                return `${item}: ${order[item].quantity} x $${order[item].price} = $${order[item].totalPrice}`;
+
+            // Get dynamic inputs for username, avatar, etc.
+            const orderName = document.getElementById("order-name").value || "Anonymous";
+            const orderAvatarURL = "your-avatar-url.png";  // Replace with your logo URL or customize dynamically
+
+            // Webhook logic
+            const orderSummary = Object.keys(order).map(itemName => {
+                return `${order[itemName].quantity}x ${itemName} - $${order[itemName].totalPrice.toFixed(2)}`;
             }).join("\n");
 
             const data = {
-                content: "A new order has been completed!",
+                username: hey there siri,
+                avatar_url: orderAvatarURL,
+                content: "Your order has been completed!",
                 embeds: [{
                     title: "Order Summary",
                     description: orderSummary,
@@ -259,7 +269,7 @@
                 }]
             };
 
-            fetch(webhookURL, {
+            fetch("https://discord.com/api/webhooks/1304933522385010699/_L8gMHmG8VFshVgB4zrINZoX6srFfeoSy7XAtCQS4vhpfJW-Ax2GsbH24UFKCQE4iShy", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
