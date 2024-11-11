@@ -5,45 +5,93 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Layout Example</title>
   <style>
-    .container {
+    /* Reset some default styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Main layout styles */
+   .container {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: auto auto auto;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-rows: auto;
       gap: 20px;
       max-width: 1200px;
       margin: 0 auto;
       padding: 20px;
     }
 
-    .top-container {
-      grid-column: 1 / -1;
+   .left-panel {
+      grid-column: 1 / 4;
       background-color: #333;
       height: 200px;
     }
 
-    .middle-container-1 {
+   .left-panel-1 {
+      grid-column: 1;
       background-color: #555;
       height: 300px;
     }
 
-    .middle-container-2 {
+   .left-panel-2 {
+      grid-column: 2;
       background-color: #555;
       height: 300px;
     }
 
-    .bottom-container {
-      grid-column: 1 / -1;
+   .left-panel-3 {
+      grid-column: 3;
+      background-color: #555;
+      height: 300px;
+    }
+
+   .right-panel {
+      grid-column: 4;
       background-color: #333;
+      height: 200px;
+    }
+
+   .right-panel-1 {
+      grid-column: 4;
+      background-color: #555;
       height: 150px;
+    }
+
+   .right-panel-2 {
+      grid-column: 4;
+      background-color: #555;
+      height: 150px;
+    }
+
+   .right-panel-3 {
+      grid-column: 4;
+      background-color: #555;
+      height: 150px;
+    }
+
+    /* Additional styles for demonstration purposes */
+   .container > div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      font-weight: bold;
+      color: white;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="top-container"></div>
-    <div class="middle-container-1"></div>
-    <div class="middle-container-2"></div>
-    <div class="bottom-container"></div>
+    <div class="left-panel">Left Panel</div>
+    <div class="left-panel-1">Left Panel 1</div>
+    <div class="left-panel-2">Left Panel 2</div>
+    <div class="left-panel-3">Left Panel 3</div>
+    <div class="right-panel">Right Panel</div>
+    <div class="right-panel-1">Right Panel 1</div>
+    <div class="right-panel-2">Right Panel 2</div>
+    <div class="right-panel-3">Right Panel 3</div>
   </div>
 </body>
 </html>
