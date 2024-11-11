@@ -294,13 +294,35 @@ function completeOrder() {
         embeds: [{
             title: `Order Summary by ${orderName}`,
             description: `
-                **Items:**
+                **Items Ordered:**
                 \n${orderSummary}
                 \n
                 **Discount Applied:** ${discountApplied ? discountApplied : "None"}
                 \n**Total Amount:** $${totalAmount.toFixed(2)}
             `,
+            fields: [
+                {
+                    name: "Total Items",
+                    value: Object.keys(order).length.toString(),
+                    inline: true
+                },
+                {
+                    name: "Discount",
+                    value: discountApplied ? discountApplied : "None",
+                    inline: true
+                },
+                {
+                    name: "Total Amount",
+                    value: `$${totalAmount.toFixed(2)}`,
+                    inline: true
+                }
+            ],
             color: 0x2F3136,  // Color of the embed (dark grey)
+            footer: {
+                text: "Order completed successfully!",
+                icon_url: "https://example.com/your-footer-icon.png" // Optional: Add a footer icon
+            },
+            timestamp: new Date() // Adding timestamp to show when the order was completed
         }]
     };
 
@@ -328,6 +350,7 @@ function completeOrder() {
         alert("Error occurred while completing the order.");
     });
 }
+
       generateMenu();
     </script>
 </body>
